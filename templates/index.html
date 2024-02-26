@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Image Classifier</h1>
+        {% if category %}
+            <h2>Result</h2>
+            <p>Uploaded Image:</p>
+            <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Image">
+            <p>Predicted Category: {{ category }}</p>
+            <a href="/">Upload Another Image</a>
+        {% else %}
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" accept=".jpg, .jpeg, .png, .gif">
+                <input type="submit" value="Upload and Predict">
+            </form>
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
